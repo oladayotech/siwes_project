@@ -1,0 +1,803 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>My Tickets</title>
+
+<link rel="stylesheet"
+href="css/my-tickets.css">
+
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+rel="stylesheet">
+
+</head>
+
+<body>
+
+    <style>
+        *{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+body{
+background:#f7faf8;
+}
+
+.container{
+display:flex;
+min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:260px;
+background:#006b2d;
+padding:25px;
+color:white;
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+font-size:24px;
+margin-bottom:40px;
+}
+
+.sidebar ul{
+list-style:none;
+}
+
+.sidebar li{
+padding:15px;
+border-radius:10px;
+margin-bottom:10px;
+cursor:pointer;
+display:flex;
+gap:10px;
+}
+
+.sidebar li:hover,
+.active{
+background:#0f8740;
+}
+
+/* MAIN */
+
+.main{
+flex:1;
+padding:35px;
+}
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
+}
+
+.header p{
+color:#666;
+}
+
+.new-ticket-btn{
+
+background:#1ca64c;
+color:white;
+
+border:none;
+
+padding:12px 20px;
+
+border-radius:12px;
+
+cursor:pointer;
+}
+
+.search-section{
+margin-bottom:20px;
+}
+
+.search-section input{
+
+width:100%;
+
+padding:15px;
+
+border:1px solid #ddd;
+
+border-radius:12px;
+}
+
+.filters{
+
+display:flex;
+gap:10px;
+
+margin-bottom:25px;
+
+flex-wrap:wrap;
+}
+
+.filters button{
+
+padding:10px 18px;
+
+border:none;
+
+background:white;
+
+border-radius:30px;
+
+cursor:pointer;
+}
+
+.active-filter{
+
+background:#1ca64c !important;
+
+color:white;
+}
+
+/* CARDS */
+
+.tickets-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(2,1fr);
+
+gap:20px;
+}
+
+.ticket-card{
+
+background:white;
+
+padding:25px;
+
+border-radius:18px;
+
+box-shadow:
+0 10px 20px rgba(0,0,0,.05);
+}
+
+.ticket-top{
+
+display:flex;
+
+justify-content:space-between;
+
+margin-bottom:15px;
+}
+
+.ticket-card h3{
+margin-bottom:10px;
+}
+
+.ticket-card p{
+color:#666;
+margin-bottom:20px;
+}
+
+.ticket-footer{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+}
+
+.ticket-footer a{
+
+text-decoration:none;
+
+color:#1ca64c;
+
+font-weight:600;
+}
+
+.status,
+.priority{
+
+padding:6px 12px;
+
+border-radius:30px;
+
+font-size:12px;
+
+font-weight:600;
+}
+
+.progress{
+background:#dff3ff;
+color:#0076b6;
+}
+
+.open{
+background:#fff4d6;
+color:#c28600;
+}
+
+.high{
+background:#ffe3e3;
+color:#d60000;
+}
+
+.medium{
+background:#fff4d6;
+color:#c28600;
+}
+
+.menu-btn{
+
+display:none;
+
+position:fixed;
+
+top:15px;
+left:15px;
+
+width:50px;
+height:50px;
+
+border:none;
+
+border-radius:12px;
+
+background:#1ca64c;
+color:white;
+
+font-size:24px;
+
+cursor:pointer;
+
+z-index:1001;
+
+box-shadow:
+0 10px 20px rgba(0,0,0,.15);
+}
+
+.ticket-card{
+
+transition:.3s;
+}
+
+.ticket-card:hover{
+
+transform:translateY(-4px);
+
+box-shadow:
+0 15px 30px rgba(0,0,0,.08);
+}
+
+/* FOOTER */
+
+.site-footer{
+
+background:#063f1d;
+
+color:white;
+
+padding:60px 40px 20px;
+}
+
+.footer-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:40px;
+}
+
+.footer-grid h4,
+.footer-grid h3{
+
+margin-bottom:15px;
+}
+
+.footer-grid a{
+
+display:block;
+
+text-decoration:none;
+
+color:#d6d6d6;
+
+margin-bottom:10px;
+
+transition:.3s;
+}
+
+.footer-grid a:hover{
+
+color:white;
+}
+
+.footer-bottom{
+
+text-align:center;
+
+padding-top:30px;
+
+margin-top:30px;
+
+border-top:
+1px solid rgba(255,255,255,.1);
+}
+
+@media(max-width:992px){
+
+.menu-btn{
+
+display:flex;
+
+justify-content:center;
+align-items:center;
+}
+
+.sidebar{
+
+position:fixed;
+
+top:0;
+left:-270px;
+
+width:260px;
+height:100vh;
+
+z-index:1000;
+
+transition:.3s;
+}
+
+.sidebar.show{
+left:0;
+}
+
+.main{
+
+padding:
+90px 20px 20px;
+}
+
+.tickets-grid{
+
+grid-template-columns:1fr;
+}
+
+.search-section input{
+
+font-size:16px;
+}
+}
+
+@media(max-width:600px){
+
+.main{
+padding:
+90px 15px 15px;
+}
+
+.header{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+gap:15px;
+}
+
+.header h1{
+
+font-size:28px;
+}
+
+.new-ticket-btn{
+
+width:100%;
+}
+
+.filters{
+
+overflow-x:auto;
+
+flex-wrap:nowrap;
+
+padding-bottom:5px;
+}
+
+.filters::-webkit-scrollbar{
+display:none;
+}
+
+.filters button{
+
+white-space:nowrap;
+
+flex-shrink:0;
+}
+
+.ticket-card{
+
+padding:20px;
+}
+
+.ticket-top{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+gap:10px;
+}
+
+.ticket-footer{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+gap:15px;
+}
+
+.ticket-footer a{
+
+width:100%;
+
+text-align:center;
+
+background:#eef8f1;
+
+padding:10px;
+
+border-radius:10px;
+}
+}
+
+@media(max-width:768px){
+
+.site-footer{
+
+padding:40px 20px;
+}
+
+.footer-grid{
+
+grid-template-columns:
+1fr;
+
+gap:25px;
+}
+
+.footer-bottom{
+
+margin-top:20px;
+}
+}
+    </style>
+
+    <button id="menuBtn" class="menu-btn">
+    <i class="ri-menu-line"></i>
+</button>
+
+<div id="overlay" class="overlay"></div>
+
+<div class="container">
+
+    <!-- Sidebar -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="logo">
+
+            <i class="ri-customer-service-2-fill"></i>
+
+            <span>ITSupport</span>
+
+        </div>
+
+        <ul>
+
+            <a href="/dashboard" style="text-decoration: none; color: white;">
+                <li>
+                <i class="ri-dashboard-line"></i>
+                Dashboard
+            </li>
+            </a>
+
+            
+
+            <a href="" style="text-decoration: none; color: white;">
+                <li class="active">
+                <i class="ri-file-list-line"></i>
+                My Tickets
+            </li>
+            </a>
+
+            <a href="/create-ticket" style="text-decoration: none; color: white;">
+                <li>
+                <i class="ri-add-circle-line"></i>
+                Create Ticket
+            </li>
+            </a>
+
+            <a href="/chatbot" style="text-decoration: none; color: white;">
+                <li>
+                <i class="ri-robot-line"></i>
+                AI Assistant
+            </li>
+            </a>
+
+            <a href="/notification" style="text-decoration: none; color: white;">
+                <li>
+                <i class="ri-notification-line"></i>
+                Notifications
+            </li>
+            </a>
+
+        </ul>
+
+    </aside>
+
+    <!-- Main -->
+
+    <main class="main">
+
+        <div class="header">
+
+            <div>
+
+                <h1>My Tickets</h1>
+
+                <p>
+                    Track all your support requests.
+                </p>
+
+            </div>
+
+            <button onclick="window.location.href='/create-ticket'" class="new-ticket-btn">
+
+                <i class="ri-add-line" ></i>
+
+                New Ticket
+
+            </button>
+
+        </div>
+
+        <!-- Search -->
+
+        <div class="search-section">
+
+            <form method="GET" class="search-section">
+                <input
+                    type="text"
+                    name="search"
+                    placeholder="Search ticket...">
+            </form>
+        </div>
+
+        <!-- Filters -->
+
+        <div class="filters">
+
+            <button
+                onclick="window.location.href='/tickets'"
+                class="{% if not status %}active-filter{% endif %}">
+                All
+            </button>
+
+            <button
+                onclick="window.location.href='?status=Open'"
+                class="{% if status == 'Open' %}active-filter{% endif %}">
+                Open
+            </button>
+
+            <button
+                onclick="window.location.href='?status=In Progress'"
+                class="{% if status == 'In Progress' %}active-filter{% endif %}">
+                In Progress
+            </button>
+
+            <button
+                onclick="window.location.href='?status=Resolved'"
+                class="{% if status == 'Resolved' %}active-filter{% endif %}">
+                Resolved
+            </button>
+
+            <button
+                onclick="window.location.href='?status=Closed'"
+                class="{% if status == 'Closed' %}active-filter{% endif %}">
+                Closed
+            </button>
+
+        </div>
+        <!-- Tickets -->
+
+        <div class="tickets-grid">
+
+            <!-- Ticket -->
+
+            <!-- add for loop here -->
+            
+                
+                {% for ticket in tickets %}
+                    <div class="ticket-card">
+
+                <div class="ticket-top">
+
+                    <span>#{{ ticket.ticket_code }} </span>
+
+                    <span class="status progress">
+                        {{ ticket.ticket_status }}
+                    </span>
+
+                </div>
+
+                <h3>
+                    {{ ticket.ticket_title }}
+                </h3>
+
+                <p>
+                    Submitted {{ ticket.created_at|timesince }} ago
+                </p>
+
+                <div class="ticket-footer">
+
+                    <span class="priority high">
+                        {{ ticket.priority }}
+                    </span>
+
+                    <a href="{% url 'ticket-detail' ticket.ticket_code %}">
+                    <!-- <a href="/tickets/{{ ticket.ticket_code }}"> -->
+                        View Details
+                    </a>
+
+                </div>
+
+            </div>
+                {% endfor %}
+
+            <!-- Ticket -->
+
+            <!-- <div class="ticket-card">
+
+                <div class="ticket-top">
+
+                    <span>#58290</span>
+
+                    <span class="status open">
+                        Open
+                    </span>
+
+                </div>
+
+                <h3>
+                    Printer Not Printing
+                </h3>
+
+                <p>
+                    Submitted yesterday
+                </p>
+
+                <div class="ticket-footer">
+
+                    <span class="priority medium">
+                        Medium Priority
+                    </span>
+
+                    <a href="/ticket-detail">
+                        View Details
+                    </a>
+
+                </div>
+
+            </div> -->
+
+        </div>
+
+    </main>
+
+</div>
+
+<footer class="site-footer">
+
+    <div class="footer-grid">
+
+        <div>
+
+            <h3>ITSupport</h3>
+
+            <p>
+                Smart IT Helpdesk platform
+                for managing support tickets.
+            </p>
+
+        </div>
+
+        <div>
+
+            <h4>Quick Links</h4>
+
+            <a href="#">Dashboard</a>
+            <a href="#">Tickets</a>
+            <a href="#">Knowledge Base</a>
+
+        </div>
+
+        <div>
+
+            <h4>Support</h4>
+
+            <a href="#">FAQ</a>
+            <a href="#">Privacy Policy</a>
+
+        </div>
+
+        <div>
+
+            <h4>Contact</h4>
+
+            <p>support@itsupport.com</p>
+
+            <p>Lagos, Nigeria</p>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+        © 2026 ITSupport.
+        All rights reserved.
+
+    </div>
+
+</footer>
+
+<script>
+
+const menuBtn =
+document.getElementById("menuBtn");
+
+const sidebar =
+document.getElementById("sidebar");
+
+const overlay =
+document.getElementById("overlay");
+
+menuBtn.addEventListener("click",()=>{
+
+sidebar.classList.toggle("show");
+
+overlay.classList.toggle("show");
+
+});
+
+overlay.addEventListener("click",()=>{
+
+sidebar.classList.remove("show");
+
+overlay.classList.remove("show");
+
+});
+
+</script>
+
+</body>
+</html>

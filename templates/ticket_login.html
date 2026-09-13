@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ticket Login | ITSupport</title>
+
+<link rel="stylesheet" href="css/ticket-login.css">
+
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+rel="stylesheet">
+
+</head>
+
+<body>
+
+    <style>
+        body{
+
+    background:#f9fcf9;
+
+    font-family:Poppins,sans-serif;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    min-height:100vh;
+}
+
+.container{
+
+    width:1100px;
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    background:white;
+
+    border-radius:25px;
+
+    overflow:hidden;
+
+    box-shadow:0 10px 40px rgba(0,0,0,.05);
+}
+
+.left-panel{
+
+    background:#f3faf5;
+
+    padding:70px;
+}
+
+.left-panel h1{
+
+    font-size:42px;
+
+    margin-bottom:15px;
+}
+
+.left-panel p{
+
+    color:#666;
+
+    line-height:1.8;
+}
+
+.ticket-card{
+
+    width:250px;
+
+    height:170px;
+
+    background:#dff4e5;
+
+    border-radius:25px;
+
+    margin-top:60px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+}
+
+.ticket-card h2{
+
+    color:#1ca64c;
+
+    font-size:48px;
+}
+
+.label{
+
+    color:#666;
+
+    font-size:14px;
+}
+
+.form-card{
+
+    padding:70px;
+}
+
+.tabs{
+
+    display:flex;
+
+    margin-bottom:40px;
+}
+
+.tab{
+
+    flex:1;
+
+    border:none;
+
+    background:none;
+
+    padding:15px;
+}
+
+.active{
+
+    color:#1ca64c;
+
+    font-weight:600;
+
+    border-bottom:3px solid #1ca64c;
+}
+
+.grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:15px;
+}
+
+label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    margin-top:20px;
+}
+
+input{
+
+    width:100%;
+
+    height:55px;
+
+    border:1px solid #ddd;
+
+    border-radius:12px;
+
+    padding:0 15px;
+}
+
+button[type="submit"]{
+
+    width:100%;
+
+    height:55px;
+
+    margin-top:30px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#1ca64c;
+
+    color:white;
+
+    font-weight:600;
+}
+
+.hidden{
+
+    display:none;
+}
+
+.back-home{
+
+display:inline-flex;
+
+align-items:center;
+
+gap:6px;
+
+margin-bottom:20px;
+
+text-decoration:none;
+
+color:#1ca64c;
+
+font-weight:500;
+}
+
+@media (max-width:992px){
+
+body{
+    padding:20px;
+}
+
+.container{
+
+    width:100%;
+    max-width:650px;
+
+    grid-template-columns:1fr;
+}
+
+.left-panel{
+
+    padding:45px;
+
+    text-align:center;
+}
+
+.left-panel h1{
+
+    font-size:34px;
+}
+
+.ticket-card{
+
+    margin:40px auto 0;
+}
+
+.form-card{
+
+    padding:45px;
+}
+
+.grid{
+
+    grid-template-columns:1fr;
+}
+}
+
+@media (max-width:768px){
+
+body{
+
+    padding:15px;
+
+    align-items:flex-start;
+}
+
+.container{
+
+    border-radius:20px;
+
+    margin:20px 0;
+}
+
+.left-panel{
+
+    display:none;
+}
+
+.form-card{
+
+    padding:30px 22px;
+}
+
+.tabs{
+
+    gap:10px;
+
+    margin-bottom:30px;
+}
+
+.tab{
+
+    font-size:14px;
+
+    padding:12px 10px;
+}
+
+label{
+
+    margin-top:18px;
+}
+
+input{
+
+    height:50px;
+
+    font-size:15px;
+}
+
+button[type="submit"]{
+
+    height:50px;
+
+    margin-top:25px;
+}
+
+.back-home{
+
+    margin-bottom:25px;
+}
+}
+
+@media (max-width:480px){
+
+.form-card{
+
+    padding:22px 18px;
+}
+
+.tabs{
+
+    flex-direction:column;
+
+    gap:8px;
+}
+
+.tab{
+
+    border-radius:10px;
+
+    border:1px solid #ddd;
+}
+
+.active{
+
+    border:1px solid #1ca64c;
+
+    border-bottom:1px solid #1ca64c;
+
+    background:#eef8f1;
+}
+
+input{
+
+    height:48px;
+
+    padding:0 14px;
+}
+
+button[type="submit"]{
+
+    height:48px;
+}
+
+.back-home{
+
+    font-size:14px;
+}
+}
+
+@media (max-width:360px){
+
+.form-card{
+
+    padding:18px 15px;
+}
+
+label{
+
+    font-size:13px;
+}
+
+input{
+
+    font-size:14px;
+}
+
+button[type="submit"]{
+
+    font-size:15px;
+}
+
+.tab{
+
+    font-size:13px;
+}
+}
+
+button,
+input{
+
+transition:.3s;
+}
+
+button[type="submit"]:hover{
+
+background:#16863d;
+
+transform:translateY(-2px);
+}
+
+input:focus{
+
+outline:none;
+
+border-color:#1ca64c;
+
+box-shadow:0 0 0 4px rgba(28,166,76,.12);
+}
+
+.tab{
+
+cursor:pointer;
+
+transition:.3s;
+}
+
+.tab:hover{
+
+background:#f5fbf6;
+}
+    </style>
+
+<div class="container">
+
+    <!-- LEFT -->
+
+    <div class="left-panel">
+
+        <h1>Access Your Account</h1>
+
+        <p>
+            Use your ticket code provided
+            by our IT team.
+        </p>
+
+        <div class="ticket-card">
+
+            <span class="label">
+                TICKET CODE
+            </span>
+
+            <h2>58291</h2>
+
+        </div>
+
+    </div>
+
+    <!-- RIGHT -->
+
+    <div class="form-card">
+
+        <a href="/" class="back-home">
+            <i class="ri-arrow-left-line"></i>
+            Back to Home
+            </a>
+
+        <div class="tabs">
+
+            <button
+            class="tab active"
+            id="signupTab">
+
+                First Time Sign Up
+
+            </button>
+
+            <button
+            class="tab"
+            id="signinTab">
+
+                Returning User
+
+            </button>
+
+        </div>
+
+        <!-- SIGNUP FORM -->
+
+        <form id="signupForm" method="post">
+
+            {% csrf_token %}
+
+            <div class="grid">
+
+                <div>
+
+                    <label>
+                        First Name
+                    </label>
+
+                    <input
+                    type="text" name="first_name"
+                    placeholder="Enter first name">
+
+                </div>
+
+                <div>
+
+                    <label>
+                        Last Name
+                    </label>
+
+                    <input
+                    type="text" name="last_name"
+                    placeholder="Enter last name">
+
+                </div>
+
+            </div>
+
+            <label>
+                Ticket Code
+            </label>
+
+            <input
+            type="text" name="ticket_code"
+            placeholder="Enter ticket code">
+
+            <button type="submit">
+
+                Continue
+
+            </button>
+
+        </form>
+
+        <!-- LOGIN FORM -->
+
+        <form
+        id="signinForm"
+        class="hidden" method="post">
+
+        {% csrf_token %}
+
+            <label>
+                Ticket Code
+            </label>
+
+            <input
+            type="text" name="ticket_code"
+            placeholder="Enter ticket code">
+
+            <label>
+                PIN
+            </label>
+
+            <input
+            type="password" name="password"
+            placeholder="Enter PIN">
+
+            <button type="submit">
+
+                Sign In
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+    const signupTab =
+document.getElementById("signupTab");
+
+const signinTab =
+document.getElementById("signinTab");
+
+const signupForm =
+document.getElementById("signupForm");
+
+const signinForm =
+document.getElementById("signinForm");
+
+signupTab.addEventListener("click", () => {
+
+    signupTab.classList.add("active");
+    signinTab.classList.remove("active");
+
+    signupForm.classList.remove("hidden");
+    signinForm.classList.add("hidden");
+});
+
+signinTab.addEventListener("click", () => {
+
+    signinTab.classList.add("active");
+    signupTab.classList.remove("active");
+
+    signinForm.classList.remove("hidden");
+    signupForm.classList.add("hidden");
+});
+</script>
+
+</body>
+</html>

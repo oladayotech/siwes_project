@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Notifications</title>
+
+<link rel="stylesheet"
+href="css/notifications.css">
+
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+rel="stylesheet">
+
+</head>
+
+<body>
+
+    <style>
+
+.overlay{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:rgba(0,0,0,.4);
+
+opacity:0;
+visibility:hidden;
+
+transition:.3s;
+
+z-index:997;
+}
+
+.overlay.show{
+
+opacity:1;
+visibility:visible;
+}
+
+        .menu-btn{
+
+display:none;
+
+background:#1ca64c;
+color:white;
+
+border:none;
+
+width:50px;
+height:50px;
+
+border-radius:12px;
+
+font-size:24px;
+
+cursor:pointer;
+
+box-shadow:
+0 10px 20px rgba(0,0,0,.15);
+}
+        *{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+body{
+background:#f7faf8;
+}
+
+.container{
+display:flex;
+min-height:100vh;
+}
+
+/* Sidebar */
+
+.sidebar{
+width:260px;
+background:#006b2d;
+color:white;
+padding:25px;
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+font-size:24px;
+margin-bottom:40px;
+}
+
+
+.sidebar ul{
+list-style:none;
+}
+
+.sidebar li{
+padding:15px;
+margin-bottom:10px;
+border-radius:10px;
+cursor:pointer;
+display:flex;
+gap:10px;
+}
+
+.sidebar li:hover,
+.active{
+background:#0f8740;
+}
+
+
+
+/* Main */
+
+.main{
+flex:1;
+padding:35px;
+}
+
+.header{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+margin-bottom:30px;
+}
+
+.header p{
+color:#666;
+}
+
+.read-btn{
+
+background:#1ca64c;
+color:white;
+
+border:none;
+
+padding:12px 20px;
+
+border-radius:12px;
+
+cursor:pointer;
+}
+
+.section{
+margin-bottom:40px;
+}
+
+.section h3{
+margin-bottom:15px;
+}
+
+.notification{
+
+background:white;
+
+padding:20px;
+
+border-radius:16px;
+
+display:flex;
+
+align-items:center;
+
+gap:15px;
+
+margin-bottom:15px;
+
+box-shadow:
+0 10px 20px rgba(0,0,0,.05);
+}
+
+.notification.unread{
+
+border-left:
+5px solid #1ca64c;
+}
+
+.icon{
+
+width:50px;
+height:50px;
+
+background:#eef8f1;
+
+border-radius:12px;
+
+display:flex;
+
+justify-content:center;
+align-items:center;
+
+color:#1ca64c;
+
+font-size:22px;
+}
+
+.notification p{
+color:#666;
+}
+
+.time{
+
+margin-left:auto;
+
+font-size:14px;
+
+color:#999;
+}
+
+@media(max-width:992px){
+
+.menu-btn{
+display:block;
+position:fixed;
+top:15px;
+left:15px;
+z-index:999;
+}
+
+.sidebar{
+position:fixed;
+left:-270px;
+top:0;
+height:100%;
+transition:.3s;
+z-index:998;
+}
+
+.sidebar.show{
+left:0;
+}
+
+@media(max-width:992px){
+
+.menu-btn{
+
+display:block;
+
+justify-content:center;
+align-items:center;
+
+position:fixed !important;
+top:15px;
+left:15px;
+
+z-index:999;
+}
+
+.sidebar{
+
+position:fixed;
+
+left:-270px;
+
+top:0;
+
+height:100%;
+
+width:260px;
+
+transition:.3s;
+
+z-index:998;
+}
+
+.sidebar.show{
+left:0;
+}
+
+.main{
+padding:80px 20px 20px;
+}
+}
+
+
+}
+
+@media(max-width:600px){
+
+
+.header{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+gap:15px;
+}
+
+.read-btn{
+width:100%;
+}
+
+.notification{
+
+flex-direction:column;
+
+align-items:flex-start;
+}
+
+.time{
+
+margin-left:0;
+}
+}
+
+/* FOOTER */
+
+.site-footer{
+
+background:#063f1d;
+
+color:white;
+
+padding:60px 40px 20px;
+}
+
+.footer-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:40px;
+}
+
+.footer-grid h4,
+.footer-grid h3{
+
+margin-bottom:15px;
+}
+
+.footer-grid a{
+
+display:block;
+
+text-decoration:none;
+
+color:#d6d6d6;
+
+margin-bottom:10px;
+
+transition:.3s;
+}
+
+.footer-grid a:hover{
+
+color:white;
+}
+
+.footer-bottom{
+
+text-align:center;
+
+padding-top:30px;
+
+margin-top:30px;
+
+border-top:
+1px solid rgba(255,255,255,.1);
+}
+
+@media(max-width:768px){
+
+.site-footer{
+
+padding:40px 20px;
+}
+
+.footer-grid{
+
+grid-template-columns:
+1fr;
+
+gap:25px;
+}
+
+.footer-bottom{
+
+margin-top:20px;
+}
+}
+    </style>
+
+    <button id="menuBtn" class="menu-btn">
+    <i class="ri-menu-line"></i>
+</button>
+
+<div id="overlay" class="overlay"></div>
+
+<div class="container">
+
+    <!-- Sidebar -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="logo">
+
+            <i class="ri-customer-service-2-fill"></i>
+
+            <span>ITSupport</span>
+
+        </div>
+
+        <ul>
+            <a href="/dashboard" style="text-decoration: none; color: white;">
+                <li>
+                <i class="ri-dashboard-line"></i>
+                Dashboard
+            </li>
+            </a>
+
+            <a href="/view-tickets" style="text-decoration: none; color: white;">
+                <li>
+                <i class="ri-file-list-line"></i>
+                My Tickets
+            </li>
+            </a>
+
+            <a href="/create-ticket" style="text-decoration: none; color: white;">
+                <li>
+                <i class="ri-add-circle-line"></i>
+                Create Ticket
+            </li>
+            </a>
+
+            <a href="/chatbox" style="text-decoration: none; color: white;">
+                <li>
+                <i class="ri-robot-line"></i>
+                AI Assistant
+            </li>
+            </a>
+
+            <a href="" style="text-decoration: none; color: white;">
+                <li class="active">
+                <i class="ri-notification-line"></i>
+                Notifications
+            </li>
+            </a>
+        </ul>
+
+    </aside>
+
+    <!-- Main -->
+
+    <main class="main">
+
+        <div class="header">
+
+            <div>
+
+                <h1>Notifications</h1>
+
+                <p>
+                    Stay updated on your tickets
+                    and support requests.
+                </p>
+
+            </div>
+
+            <button class="read-btn">
+
+                Mark All As Read
+
+            </button>
+
+        </div>
+
+        <!-- TODAY -->
+
+        <section class="section">
+
+            <h3>Today</h3>
+
+            <div class="notification unread">
+
+                <div class="icon">
+
+                    <i class="ri-user-settings-line"></i>
+
+                </div>
+
+                <div>
+
+                    <h4>
+                        Ticket Assigned
+                    </h4>
+
+                    <p>
+                        Ticket #58291 has been
+                        assigned to IT Support.
+                    </p>
+
+                </div>
+
+                <span class="time">
+                    5 min ago
+                </span>
+
+            </div>
+
+            <div class="notification unread">
+
+                <div class="icon">
+
+                    <i class="ri-message-2-line"></i>
+
+                </div>
+
+                <div>
+
+                    <h4>
+                        New Comment
+                    </h4>
+
+                    <p>
+                        IT Support commented
+                        on Ticket #58291.
+                    </p>
+
+                </div>
+
+                <span class="time">
+                    15 min ago
+                </span>
+
+            </div>
+
+        </section>
+
+        <!-- YESTERDAY -->
+
+        <section class="section">
+
+            <h3>Yesterday</h3>
+
+            <div class="notification">
+
+                <div class="icon">
+
+                    <i class="ri-check-double-line"></i>
+
+                </div>
+
+                <div>
+
+                    <h4>
+                        Ticket Resolved
+                    </h4>
+
+                    <p>
+                        Ticket #58290 has
+                        been resolved.
+                    </p>
+
+                </div>
+
+                <span class="time">
+                    1 day ago
+                </span>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<!-- FOOTER -->
+
+    <footer class="site-footer">
+
+    <div class="footer-grid">
+
+        <div>
+
+            <h3>ITSupport</h3>
+
+            <p>
+                Smart IT Helpdesk platform
+                for managing support tickets.
+            </p>
+
+        </div>
+
+        <div>
+
+            <h4>Quick Links</h4>
+
+            <a href="#">Dashboard</a>
+            <a href="#">Tickets</a>
+            <a href="#">Knowledge Base</a>
+
+        </div>
+
+        <div>
+
+            <h4>Support</h4>
+
+            <a href="#">FAQ</a>
+            <a href="#">Privacy Policy</a>
+
+        </div>
+
+        <div>
+
+            <h4>Contact</h4>
+
+            <p>support@itsupport.com</p>
+
+            <p>Lagos, Nigeria</p>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+        © 2026 ITSupport.
+        All rights reserved.
+
+    </div>
+
+</footer>
+
+<script>
+    const menuBtn =
+document.getElementById("menuBtn");
+
+const sidebar =
+document.getElementById("sidebar");
+
+const overlay =
+document.getElementById("overlay");
+
+menuBtn.addEventListener("click", () => {
+
+    sidebar.classList.toggle("show");
+
+    overlay.classList.toggle("show");
+
+});
+
+overlay.addEventListener("click", () => {
+
+    sidebar.classList.remove("show");
+
+    overlay.classList.remove("show");
+
+});
+</script>
+
+</body>
+</html>

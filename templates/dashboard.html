@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard | ITSupport</title>
+
+
+
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+rel="stylesheet">
+
+</head>
+
+<body>
+
+    <style>
+        *{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+body{
+background:#f7faf8;
+}
+
+.container{
+display:flex;
+min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+
+width:260px;
+
+background:#006b2d;
+
+color:white;
+
+padding:25px;
+}
+
+.logo{
+
+display:flex;
+align-items:center;
+gap:10px;
+
+font-size:24px;
+
+margin-bottom:40px;
+}
+
+.logo i{
+font-size:28px;
+}
+
+.sidebar ul{
+list-style:none;
+}
+
+.sidebar li{
+
+padding:15px;
+
+border-radius:10px;
+
+margin-bottom:8px;
+
+cursor:pointer;
+
+display:flex;
+gap:10px;
+}
+
+.sidebar li:hover{
+background:#0f8740;
+}
+
+.active{
+background:#0f8740;
+}
+
+/* MAIN */
+
+.main{
+
+flex:1;
+
+padding:30px;
+}
+
+.topbar{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:30px;
+}
+
+.topbar p{
+color:#777;
+}
+
+.top-icons{
+
+display:flex;
+
+align-items:center;
+
+gap:20px;
+}
+
+.avatar{
+
+width:40px;
+
+height:40px;
+
+border-radius:50%;
+
+background:#1ca64c;
+
+color:white;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+}
+
+.stats{
+
+display:grid;
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:20px;
+
+margin-bottom:30px;
+}
+
+.card{
+
+background:white;
+
+padding:25px;
+
+border-radius:15px;
+
+box-shadow:
+0 5px 15px rgba(0,0,0,.05);
+}
+
+.card h3{
+
+font-size:32px;
+
+color:#1ca64c;
+}
+
+/* TABLE */
+
+.recent{
+
+background:white;
+
+padding:25px;
+
+border-radius:15px;
+
+box-shadow:
+0 5px 15px rgba(0,0,0,.05);
+}
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+}
+
+th, td{
+
+padding:15px;
+
+text-align:left;
+
+border-bottom:
+1px solid #eee;
+}
+
+.status,
+.priority{
+
+padding:6px 12px;
+
+border-radius:30px;
+
+font-size:12px;
+
+font-weight:600;
+}
+
+.progress{
+background:#dff3ff;
+color:#0076b6;
+}
+
+.open{
+background:#fff4d6;
+color:#c28600;
+}
+
+.resolved{
+background:#e4f8ea;
+color:#0a8b34;
+}
+
+.closed{
+background:#ffe3e3;
+color:#d60000;
+}
+
+.progress{
+background:#dff3ff;
+color:#0076b6;
+}
+
+.open{
+background:#fff4d6;
+color:#c28600;
+}
+
+.resolved{
+background:#e4f8ea;
+color:#0a8b34;
+}
+
+.closed{
+background:#ffe3e3;
+color:#d60000;
+}
+
+.Progress{
+background:#dff3ff;
+color:#0076b6;
+}
+
+.Open{
+background:#fff4d6;
+color:#c28600;
+}
+
+.Resolved{
+background:#e4f8ea;
+color:#0a8b34;
+}
+
+.Closed{
+background:#ffe3e3;
+color:#d60000;
+}
+
+.high{
+background:#ffe3e3;
+color:#d60000;
+}
+
+.medium{
+background:#fff4d6;
+color:#c28600;
+}
+
+.low{
+background:#e4f8ea;
+color:#0a8b34;
+}
+
+.High{
+background:#ffe3e3;
+color:#d60000;
+}
+
+.Medium{
+background:#fff4d6;
+color:#c28600;
+}
+
+.Low{
+background:#e4f8ea;
+color:#0a8b34;
+}
+
+/* FOOTER */
+
+.site-footer{
+
+background:#063f1d;
+
+color:white;
+
+padding:60px 40px 20px;
+}
+
+.footer-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:40px;
+}
+
+.footer-grid h4,
+.footer-grid h3{
+
+margin-bottom:15px;
+}
+
+.footer-grid a{
+
+display:block;
+
+text-decoration:none;
+
+color:#d6d6d6;
+
+margin-bottom:10px;
+
+transition:.3s;
+}
+
+.footer-grid a:hover{
+
+color:white;
+}
+
+.footer-bottom{
+
+text-align:center;
+
+padding-top:30px;
+
+margin-top:30px;
+
+border-top:
+1px solid rgba(255,255,255,.1);
+}
+
+
+.menu-btn{
+
+display:none;
+
+position:fixed;
+
+top:15px;
+left:15px;
+
+width:50px;
+height:50px;
+
+border:none;
+
+border-radius:12px;
+
+background:#1ca64c;
+color:white;
+
+font-size:24px;
+
+cursor:pointer;
+
+z-index:1001;
+
+box-shadow:
+0 10px 20px rgba(0,0,0,.15);
+}
+
+.notification-btn{
+
+border:none;
+
+background:white;
+
+width:42px;
+height:42px;
+
+border-radius:50%;
+
+cursor:pointer;
+
+font-size:20px;
+
+box-shadow:
+0 5px 15px rgba(0,0,0,.08);
+}
+
+.overlay{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:rgba(0,0,0,.4);
+
+opacity:0;
+
+visibility:hidden;
+
+transition:.3s;
+
+z-index:999;
+}
+
+.overlay.show{
+
+opacity:1;
+
+visibility:visible;
+}
+
+@media(max-width:992px){
+
+.menu-btn{
+
+display:flex;
+
+justify-content:center;
+align-items:center;
+}
+
+.sidebar{
+
+position:fixed;
+
+top:0;
+left:-270px;
+
+width:260px;
+height:100vh;
+
+z-index:1000;
+
+transition:.3s;
+}
+
+.sidebar.show{
+left:0;
+}
+
+.main{
+
+padding:
+90px 20px 20px;
+}
+
+.stats{
+
+grid-template-columns:
+1fr 1fr;
+}
+
+.topbar{
+
+align-items:flex-start;
+}
+
+.recent{
+
+overflow-x:auto;
+}
+}
+
+@media(max-width:600px){
+
+.main{
+
+padding:
+90px 15px 15px;
+}
+
+.topbar{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+}
+
+.welcome-text h2{
+
+font-size:24px;
+}
+
+.welcome-text p{
+
+font-size:14px;
+}
+
+.stats{
+
+grid-template-columns:
+1fr;
+}
+
+.card{
+
+padding:20px;
+}
+
+.top-icons{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+}
+
+.avatar{
+
+width:42px;
+height:42px;
+}
+
+table{
+
+min-width:650px;
+}
+}
+
+@media(max-width:768px){
+
+.site-footer{
+
+padding:40px 20px;
+}
+
+.footer-grid{
+
+grid-template-columns:
+1fr;
+
+gap:25px;
+}
+
+.footer-bottom{
+
+margin-top:20px;
+}
+}
+
+    </style>
+
+    <button id="menuBtn" class="menu-btn">
+    <i class="ri-menu-line"></i>
+</button>
+
+<div id="overlay" class="overlay"></div>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="logo">
+
+            <i class="ri-customer-service-2-fill"></i>
+
+            <span>ITSupport</span>
+
+        </div>
+
+        <ul>
+
+            <a href="" style="text-decoration: none; color: white;">
+                <li class="active">
+                    <i class="ri-dashboard-line"></i>
+                Dashboard
+                
+            </li>
+            </a>
+            <!-- <li class="active">
+                <a href="" style="text-decoration: none; color: white;">
+                    <i class="ri-dashboard-line"></i>
+                Dashboard
+                </a>
+                
+            </li> -->
+
+            <a href="/tickets" style="text-decoration: none; color: white;">
+            <li class="view-tickets">
+                    <i class="ri-file-list-3-line"></i>
+                My Tickets
+            </li>
+
+            <a href="/create-ticket" style="text-decoration: none; color: white;">
+            <li class="create-ticket">
+                    <i class="ri-add-circle-line"></i>
+                Create Ticket
+            </li>
+
+            </a>
+
+            <a href="/chatbot" style="text-decoration: none; color: white;">
+            <li class="chatbox">
+                    <i class="ri-robot-line"></i>
+                AI Assistant
+            </li>
+
+            <!-- <li class="chatbox">
+                <a href="/chatbox" style="text-decoration: none; color: white;">
+                    
+                AI Assistant
+                </a>
+                
+            </li> -->
+
+            <!-- <li>
+                <i class="ri-notification-line"></i>
+                Notifications
+            </li> -->
+
+            <li>
+                <a href="" style="text-decoration: none; color: white;">
+                    <i class="ri-book-open-line"></i>
+                Knowledge Base
+                </a>
+                
+            </li>
+
+            <!-- <li>
+                <i class="ri-user-line"></i>
+                Profile
+            </li>
+
+            <li>
+                <i class="ri-logout-box-r-line"></i>
+                Logout
+            </li> -->
+
+        </ul>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main">
+
+        <!-- TOPBAR -->
+
+        <div class="topbar">
+
+    <div class="welcome-text">
+
+        <h2>
+            Welcome Back, TT
+        </h2>
+
+        <p>
+            Here's what's happening
+            with your tickets today.
+        </p>
+
+    </div>
+
+    <div class="top-icons">
+
+        <button onclick="window.location.href='/notification'" class="notification-btn">
+
+            <i class="ri-notification-3-line"></i>
+
+        </button>
+
+        <div onclick="window.location.href='/{{ request.user.username }}'" class="avatar">
+
+            T
+
+        </div>
+
+    </div>
+
+</div>
+
+        <!-- STATS -->
+
+        <section class="stats">
+
+            <div class="card">
+
+                <h3>{{ stats.open_count }}</h3>
+
+                <p>Open Tickets</p>
+
+            </div>
+
+            <div class="card">
+
+                <h3>{{ stats.progress_count }}</h3>
+
+                <p>In Progress</p>
+
+            </div>
+
+            <div class="card">
+
+                <h3>{{ stats.resolved_count }}</h3>
+
+                <p>Resolved</p>
+
+            </div>
+
+            <div class="card">
+
+                <h3>{{ stats.closed_count }}</h3>
+
+                <p>Closed</p>
+
+            </div>
+
+            <!-- <button class="create_ticket">Create Ticket</button>
+                <button class="ask_ai">Ask AI Assistant</button> -->
+
+        </section>
+
+        <!-- RECENT TICKETS -->
+
+        <section class="recent">
+
+            <div class="section-header">
+
+                <h3>Recent Tickets</h3>
+
+            </div>
+
+            <table>
+
+                <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Title</th>
+
+                    <th>Status</th>
+
+                    <th>Priority</th>
+
+                    <th>Updated</th>
+
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                <!-- <tr>
+
+                    <td>#58291</td>
+
+                    <td>Laptop not powering on</td>
+
+                    <td>
+                        <span class="status progress">
+                            In Progress
+                        </span>
+                    </td>
+
+                    <td>
+                        <span class="priority high">
+                            High
+                        </span>
+                    </td>
+
+                    <td>2 hours ago</td>
+
+                </tr> -->
+
+                
+                {% for ticket in tickets %}
+                    <tr>
+
+                    <td onclick="window.location.href='/tickets/{{ ticket.ticket_code}}'">#{{ ticket.ticket_code }}</td>
+
+                    <td>{{ ticket.ticket_title }}</td>
+
+                    <td>
+                        <span class="status {{ ticket.ticket_status }}">
+                            {{ ticket.ticket_status }}
+                        </span>
+                    </td>
+
+                    <td>
+                        <span class="priority {{ ticket.priority }}">
+                            {{ ticket.priority }}
+                        </span>
+                    </td>
+
+                    <td>{{ ticket.created_at|timesince }} ago</td>
+
+                </tr>
+                {% endfor %}
+
+                <!-- <tr>
+
+                    <td>#58289</td>
+
+                    <td>Email not syncing</td>
+
+                    <td>
+                        <span class="status resolved">
+                            Resolved
+                        </span>
+                    </td>
+
+                    <td>
+                        <span class="priority low">
+                            Low
+                        </span>
+                    </td>
+
+                    <td>2 days ago</td>
+
+                </tr> -->
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+    </main>
+
+</div>
+
+<!-- FOOTER -->
+
+    <footer class="site-footer">
+
+    <div class="footer-grid">
+
+        <div>
+
+            <h3>ITSupport</h3>
+
+            <p>
+                Smart IT Helpdesk platform
+                for managing support tickets.
+            </p>
+
+        </div>
+
+        <div>
+
+            <h4>Quick Links</h4>
+
+            <a href="#">Dashboard</a>
+            <a href="#">Tickets</a>
+            <a href="#">Knowledge Base</a>
+
+        </div>
+
+        <div>
+
+            <h4>Support</h4>
+
+            <a href="#">FAQ</a>
+            <a href="#">Privacy Policy</a>
+
+        </div>
+
+        <div>
+
+            <h4>Contact</h4>
+
+            <p>support@itsupport.com</p>
+
+            <p>Lagos, Nigeria</p>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+        © 2026 ITSupport.
+        All rights reserved.
+
+    </div>
+
+</footer>
+
+    <script>
+
+const menuBtn =
+document.getElementById("menuBtn");
+
+const sidebar =
+document.getElementById("sidebar");
+
+const overlay =
+document.getElementById("overlay");
+
+menuBtn.addEventListener("click",()=>{
+
+sidebar.classList.toggle("show");
+
+overlay.classList.toggle("show");
+
+});
+
+overlay.addEventListener("click",()=>{
+
+sidebar.classList.remove("show");
+
+overlay.classList.remove("show");
+
+});
+
+</script>
+
+
+
+</body>
+</html>

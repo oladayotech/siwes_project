@@ -221,5 +221,17 @@ __marimo__/
 db.sqlite3.backup
 initial_data.json
 
-backup/db.sqlite3.backup
-backup/initial_data.json
+backups/db.sqlite3.backup
+backups/initial_data.json
+
+backups/
+
+# Backups
+backups/
+
+# Environment variables
+.env
+.env.*
+
+# Keep example environment file
+!.env.example

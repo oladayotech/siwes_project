@@ -247,6 +247,24 @@ border-top:
 1px solid rgba(255,255,255,.1);
 }
 
+.menu-btn {
+    display: none;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 12px;
+    background: #1ca64c;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1001;
+    box-shadow: 0 10px 20px rgba(0,0,0,.15);
+}
+
+
 @media(max-width:768px){
 
 .site-footer{
@@ -268,13 +286,96 @@ margin-top:20px;
 }
 }
 
+/* TABLET / MOBILE */
+
+@media (max-width: 992px) {
+
+    .menu-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -270px;
+
+        width: 260px;
+        height: 100vh;
+
+        z-index: 1000;
+        transition: .3s;
+    }
+
+    .sidebar.show {
+        left: 0;
+    }
+
+    .main-content {
+        padding: 90px 20px 20px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .main-content {
+        padding: 90px 15px 15px;
+    }
+
+    .header h1 {
+        font-size: 28px;
+    }
+
+    .header p {
+        font-size: 14px;
+    }
+
+    .ticket-card {
+        padding: 20px;
+    }
+
+    .submit-btn {
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 768px) {
+
+    .site-footer {
+        padding: 40px 20px;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .footer-bottom {
+        margin-top: 20px;
+    }
+}
+
+
     </style>
+
+    <button id="menuBtn" class="menu-btn">
+        <i class="ri-menu-line"></i>
+    </button>
+
+<div id="overlay" class="overlay"></div>
 
 <div class="container">
 
     <!-- Sidebar -->
 
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
 
         <div class="logo">
 
@@ -307,7 +408,7 @@ margin-top:20px;
             </li>
             </a>
 
-            <a href="/chatbox" style="text-decoration: none; color: white;">
+            <a href="/chatbot" style="text-decoration: none; color: white;">
                 <li>
                 <i class="ri-robot-line"></i>
                 AI Assistant
@@ -333,7 +434,7 @@ margin-top:20px;
 
             <div>
 
-                <h1>Create New Ticket</h1>
+                <h1 style="color: #006b2d;">Create New Ticket</h1>
 
                 <p>
                     Describe your issue and
@@ -565,8 +666,22 @@ margin-top:20px;
 </footer>
 
 <script src="js/create-ticket.js"></script>
+    <script>
+const menuBtn = document.getElementById("menuBtn");
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("overlay");
 
+menuBtn.addEventListener("click", () => {
+    sidebar.classList.toggle("show");
+    overlay.classList.toggle("show");
+});
+
+overlay.addEventListener("click", () => {
+    sidebar.classList.remove("show");
+    overlay.classList.remove("show");
+});
 </script>
+
 
 </body>
 </html>

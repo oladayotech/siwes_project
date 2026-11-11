@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 
+import dj_database_url
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,6 +28,13 @@ SECRET_KEY = 'django-insecure-!p=zgb&-hlt6qiu8&q@5t$7k+k3vyx*g)$ny%-y3&j1pt72kx#
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 
 # Application definition
@@ -92,6 +101,13 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default='',
+#         conn_max_age=600,
+#         ssl_require=True
+#     )
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -128,6 +144,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

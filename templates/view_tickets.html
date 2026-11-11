@@ -231,7 +231,7 @@ background:#fff4d6;
 color:#c28600;
 }
 
-.high{
+.high, .closed{
 background:#ffe3e3;
 color:#d60000;
 }
@@ -239,6 +239,11 @@ color:#d60000;
 .medium{
 background:#fff4d6;
 color:#c28600;
+}
+
+.low, .resolved{
+background: #f7faf8;
+color: #006b2d;
 }
 
 .menu-btn{
@@ -489,6 +494,63 @@ gap:25px;
 margin-top:20px;
 }
 }
+
+/* Ticket status */
+.status.open {
+    background: #fff4e5;
+    color: #b45309;
+}
+
+.status.in-progress {
+    background: #e0f2fe;
+    color: #0369a1;
+}
+
+.status.resolved {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.status.closed {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+/* Ticket priority */
+.priority.high {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.priority.medium {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.priority.low {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 50px 20px;
+    color: #64748b;
+}
+
+.empty-state i {
+    font-size: 45px;
+    color: #94a3b8;
+}
+
+.empty-state h3 {
+    margin: 15px 0 8px;
+    color: #1f2937;
+}
+
+.empty-state p {
+    font-size: 14px;
+}
     </style>
 
     <button id="menuBtn" class="menu-btn">
@@ -562,11 +624,14 @@ margin-top:20px;
 
             <div>
 
-                <h1>My Tickets</h1>
-
-                <p>
-                    Track all your support requests.
-                </p>
+                {% if is_staff_member %}
+                    <h1 style="color: #006b2d;">Ticket Management</h1>
+                    <!-- <br> -->
+                    <p>Manage and track support requests submitted by users.</p>
+                {% else %}
+                    <h1 style="color: #006b2d;">My Tickets</h1>
+                    <p>Track and manage your support requests.</p>
+                {% endif %}
 
             </div>
 
@@ -588,45 +653,74 @@ margin-top:20px;
                 <input
                     type="text"
                     name="search"
-                    placeholder="Search ticket...">
+                    placeholder="Search ticket..."
+                    value="{{ search }}"
+                >
+
+                {% if status %}
+                    <input type="hidden" name="status" value="{{ status }}">
+                {% endif %}
             </form>
         </div>
 
         <!-- Filters -->
 
+        <!-- <div class="filter-buttons">
+            <a href="?search={{ search|urlencode }}"
+            class="{% if not status %}active{% endif %}">
+                All
+            </a>
+
+            <a href="?status=Open&search={{ search|urlencode }}"
+            class="{% if status == 'Open' %}active{% endif %}">
+                Open
+            </a>
+
+            <a href="?status=In%20Progress&search={{ search|urlencode }}"
+            class="{% if status == 'In Progress' %}active{% endif %}">
+                In Progress
+            </a>
+
+            <a href="?status=Resolved&search={{ search|urlencode }}"
+            class="{% if status == 'Resolved' %}active{% endif %}">
+                Resolved
+            </a>
+        </div> -->
+
         <div class="filters">
 
             <button
-                onclick="window.location.href='/tickets'"
+                onclick="window.location.href='?search={{ search|urlencode }}'"
                 class="{% if not status %}active-filter{% endif %}">
                 All
             </button>
 
             <button
-                onclick="window.location.href='?status=Open'"
+                onclick="window.location.href='?status=Open&search={{ search|urlencode }}'"
                 class="{% if status == 'Open' %}active-filter{% endif %}">
                 Open
             </button>
 
             <button
-                onclick="window.location.href='?status=In Progress'"
+                onclick="window.location.href='?status=In%20Progress&search={{ search|urlencode }}'"
                 class="{% if status == 'In Progress' %}active-filter{% endif %}">
                 In Progress
             </button>
 
             <button
-                onclick="window.location.href='?status=Resolved'"
+                onclick="window.location.href='?status=Resolved&search={{ search|urlencode }}'"
                 class="{% if status == 'Resolved' %}active-filter{% endif %}">
                 Resolved
             </button>
 
             <button
-                onclick="window.location.href='?status=Closed'"
+                onclick="window.location.href='?status=Closed&search={{ search|urlencode }}'"
                 class="{% if status == 'Closed' %}active-filter{% endif %}">
                 Closed
             </button>
 
         </div>
+        
         <!-- Tickets -->
 
         <div class="tickets-grid">
@@ -641,12 +735,11 @@ margin-top:20px;
 
                 <div class="ticket-top">
 
-                    <span>#{{ ticket.ticket_code }} </span>
+                    <span style="color: #006b2d;">#{{ ticket.ticket_code }} </span>
 
-                    <span class="status progress">
+                    <span class="status {{ ticket.ticket_status|slugify }}">
                         {{ ticket.ticket_status }}
                     </span>
-
                 </div>
 
                 <h3>
@@ -659,7 +752,7 @@ margin-top:20px;
 
                 <div class="ticket-footer">
 
-                    <span class="priority high">
+                    <span class="priority {{ ticket.priority|lower }}">
                         {{ ticket.priority }}
                     </span>
 
@@ -671,43 +764,21 @@ margin-top:20px;
                 </div>
 
             </div>
-                {% endfor %}
 
-            <!-- Ticket -->
-
-            <!-- <div class="ticket-card">
-
-                <div class="ticket-top">
-
-                    <span>#58290</span>
-
-                    <span class="status open">
-                        Open
-                    </span>
-
-                </div>
-
-                <h3>
-                    Printer Not Printing
-                </h3>
-
+            {% empty %}
+            <div class="empty-state">
+                <i class="ri-inbox-line"></i>
+                <h3>No tickets found</h3>
                 <p>
-                    Submitted yesterday
+                    {% if search or status %}
+                        Try changing your search or status filter.
+                    {% else %}
+                        You haven't submitted any tickets yet.
+                    {% endif %}
                 </p>
-
-                <div class="ticket-footer">
-
-                    <span class="priority medium">
-                        Medium Priority
-                    </span>
-
-                    <a href="/ticket-detail">
-                        View Details
-                    </a>
-
-                </div>
-
-            </div> -->
+            </div>
+            
+            {% endfor %}
 
         </div>
 

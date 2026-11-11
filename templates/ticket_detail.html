@@ -1,939 +1,405 @@
+
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+    <title>Ticket Details</title>
 
-<title>Ticket Details</title>
+    <link rel="stylesheet" href="{% static 'css/ticket-details.css' %}">
 
-<link rel="stylesheet"
-href="css/ticket-details.css">
-
-<link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
-rel="stylesheet">
-
+    <link
+        href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+        rel="stylesheet"
+    >
 </head>
 
 <body>
 
-    <style>
-        *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Poppins,sans-serif;
-}
-
-body{
-background:#f7faf8;
-}
-
-.container{
-display:flex;
-min-height:100vh;
-}
-
-.sidebar{
-width:260px;
-background:#006b2d;
-padding:25px;
-color:white;
-}
-
-.logo{
-display:flex;
-align-items:center;
-gap:10px;
-font-size:24px;
-margin-bottom:40px;
-}
-
-.sidebar ul{
-list-style:none;
-}
-
-.sidebar li{
-padding:15px;
-margin-bottom:10px;
-border-radius:10px;
-cursor:pointer;
-}
-
-.active{
-background:#0f8740;
-}
-
-.main{
-flex:1;
-padding:35px;
-}
-
-.ticket-header{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-margin-bottom:30px;
-}
-
-.badges{
-display:flex;
-gap:10px;
-}
-
-.priority{
-
-background:#ffe3e3;
-color:#d60000;
-
-padding:8px 15px;
-
-border-radius:30px;
-}
-
-.status{
-
-background:#dff3ff;
-color:#0076b6;
-
-padding:8px 15px;
-
-border-radius:30px;
-}
-
-.content-grid{
-
-display:grid;
-
-grid-template-columns:
-2fr 1fr;
-
-gap:25px;
-}
-
-.card{
-
-background:white;
-
-padding:25px;
-
-border-radius:18px;
-
-margin-bottom:25px;
-
-box-shadow:
-0 10px 20px rgba(0,0,0,.05);
-}
-
-.timeline{
-
-list-style:none;
-}
-
-.timeline li{
-
-padding:12px 0;
-
-border-left:3px solid #ddd;
-
-padding-left:20px;
-}
-
-.done{
-
-border-left:
-3px solid #1ca64c !important;
-
-color:#1ca64c;
-}
-
-.comment{
-
-padding:15px;
-
-border-radius:12px;
-
-margin-top:15px;
-}
-
-.user{
-background:#eef8f1;
-}
-
-.support{
-background:#f3f4f6;
-}
-
-.reply-box{
-margin-top:20px;
-}
-
-.reply-box textarea{
-
-width:100%;
-height:120px;
-
-padding:15px;
-
-border:1px solid #ddd;
-
-border-radius:12px;
-}
-
-.reply-box button{
-
-margin-top:15px;
-
-background:#1ca64c;
-
-color:white;
-
-border:none;
-
-padding:12px 20px;
-
-border-radius:12px;
-}
-
-.tech{
-
-display:flex;
-
-align-items:center;
-
-gap:15px;
-}
-
-.avatar{
-
-width:50px;
-height:50px;
-
-border-radius:50%;
-
-background:#1ca64c;
-
-color:white;
-
-display:flex;
-
-justify-content:center;
-align-items:center;
-}
-
-.menu-btn{
-
-display:none;
-
-position:fixed;
-
-top:15px;
-left:15px;
-
-width:50px;
-height:50px;
-
-border:none;
-
-border-radius:12px;
-
-background:#1ca64c;
-color:white;
-
-font-size:24px;
-
-cursor:pointer;
-
-z-index:1001;
-
-box-shadow:
-0 10px 20px rgba(0,0,0,.15);
-}
-
-.overlay{
-
-position:fixed;
-
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-background:rgba(0,0,0,.4);
-
-opacity:0;
-
-visibility:hidden;
-
-transition:.3s;
-
-z-index:999;
-}
-
-.overlay.show{
-
-opacity:1;
-
-visibility:visible;
-}
-
-.comment{
-
-max-width:100%;
-overflow-wrap:break-word;
-}
-
-.ticket-header{
-
-background:white;
-
-padding:20px;
-
-border-radius:18px;
-
-box-shadow:
-0 10px 20px rgba(0,0,0,.05);
-
-margin-bottom:25px;
-}
-
-@media(max-width:992px){
-
-.menu-btn{
-
-display:flex;
-
-justify-content:center;
-align-items:center;
-}
-
-.sidebar{
-
-position:fixed;
-
-top:0;
-left:-270px;
-
-width:260px;
-height:100vh;
-
-z-index:1000;
-
-transition:.3s;
-}
-
-.sidebar.show{
-left:0;
-}
-
-.main{
-
-padding:
-90px 20px 20px;
-}
-
-.content-grid{
-
-grid-template-columns:1fr;
-}
-
-.ticket-header{
-
-flex-direction:column;
-
-align-items:flex-start;
-
-gap:15px;
-}
-
-.badges{
-
-flex-wrap:wrap;
-}
-
-.card{
-
-padding:20px;
-}
-}
-
-@media(max-width:600px){
-
-.main{
-padding:
-90px 15px 15px;
-}
-
-.card{
-
-padding:18px;
-}
-
-.ticket-header h1{
-
-font-size:24px;
-}
-
-.badges{
-
-width:100%;
-}
-
-.priority,
-.status{
-
-font-size:12px;
-
-padding:8px 12px;
-}
-
-.tech{
-
-flex-direction:column;
-
-align-items:flex-start;
-}
-
-.avatar{
-
-width:45px;
-height:45px;
-}
-
-.timeline li{
-
-font-size:14px;
-
-padding-left:15px;
-}
-
-.reply-box textarea{
-
-height:100px;
-}
-
-.reply-box button{
-
-width:100%;
-}
-
-.comment{
-
-padding:12px;
-}
-
-.attachment{
-
-display:flex;
-align-items:center;
-gap:10px;
-
-word-break:break-word;
-}
-}
-
-/* FOOTER */
-
-.site-footer{
-
-background:#063f1d;
-
-color:white;
-
-padding:60px 40px 20px;
-}
-
-.footer-grid{
-
-display:grid;
-
-grid-template-columns:
-repeat(4,1fr);
-
-gap:40px;
-}
-
-.footer-grid h4,
-.footer-grid h3{
-
-margin-bottom:15px;
-}
-
-.footer-grid a{
-
-display:block;
-
-text-decoration:none;
-
-color:#d6d6d6;
-
-margin-bottom:10px;
-
-transition:.3s;
-}
-
-.footer-grid a:hover{
-
-color:white;
-}
-
-.footer-bottom{
-
-text-align:center;
-
-padding-top:30px;
-
-margin-top:30px;
-
-border-top:
-1px solid rgba(255,255,255,.1);
-}
-
-@media(max-width:768px){
-
-.site-footer{
-
-padding:40px 20px;
-}
-
-.footer-grid{
-
-grid-template-columns:
-1fr;
-
-gap:25px;
-}
-
-.footer-bottom{
-
-margin-top:20px;
-}
-}
-
-.progress{
-background:#dff3ff;
-color:#0076b6;
-}
-
-.open{
-background:#fff4d6;
-color:#c28600;
-}
-
-.resolved{
-background:#e4f8ea;
-color:#0a8b34;
-}
-
-.closed{
-background:#ffe3e3;
-color:#d60000;
-}
-
-.progress{
-background:#dff3ff;
-color:#0076b6;
-}
-
-.open{
-background:#fff4d6;
-color:#c28600;
-}
-
-.resolved{
-background:#e4f8ea;
-color:#0a8b34;
-}
-
-.closed{
-background:#ffe3e3;
-color:#d60000;
-}
-
-.Progress{
-background:#dff3ff;
-color:#0076b6;
-}
-
-.Open{
-background:#fff4d6;
-color:#c28600;
-}
-
-.Resolved{
-background:#e4f8ea;
-color:#0a8b34;
-}
-
-.Closed{
-background:#ffe3e3;
-color:#d60000;
-}
-
-.high{
-background:#ffe3e3;
-color:#d60000;
-}
-
-.medium{
-background:#fff4d6;
-color:#c28600;
-}
-
-.low{
-background:#e4f8ea;
-color:#0a8b34;
-}
-
-.High{
-background:#ffe3e3;
-color:#d60000;
-}
-
-.Medium{
-background:#fff4d6;
-color:#c28600;
-}
-
-.Low{
-background:#e4f8ea;
-color:#0a8b34;
-}
-
-
-    </style>
-
+    <!-- MOBILE MENU BUTTON -->
     <button id="menuBtn" class="menu-btn">
-    <i class="ri-menu-line"></i>
-</button>
+        <i class="ri-menu-line"></i>
+    </button>
 
-<div id="overlay" class="overlay"></div>
+    <div id="overlay" class="overlay"></div>
 
-<div class="container">
+    <div class="container">
 
-    <!-- SIDEBAR -->
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
 
-    <aside class="sidebar" id="sidebar">
+            <div class="logo">
+                <i class="ri-customer-service-2-fill"></i>
+                <span>ITSupport</span>
+            </div>
 
-        <div class="logo">
+            <ul>
+                <a href="/dashboard" style="text-decoration: none; color: white;">
+                    <li>
+                        <i class="ri-dashboard-line"></i>
+                        Dashboard
+                    </li>
+                </a>
 
-            <i class="ri-customer-service-2-fill"></i>
+                <a href="" style="text-decoration: none; color: white;">
+                    <li class="active">
+                        <i class="ri-file-list-line"></i>
+                        My Tickets
+                    </li>
+                </a>
 
-            <span>ITSupport</span>
+                <a href="/create-ticket" style="text-decoration: none; color: white;">
+                    <li>
+                        <i class="ri-add-circle-line"></i>
+                        Create Ticket
+                    </li>
+                </a>
 
-        </div>
+                <a href="/chatbot" style="text-decoration: none; color: white;">
+                    <li>
+                        <i class="ri-robot-line"></i>
+                        AI Assistant
+                    </li>
+                </a>
+            </ul>
 
-        <ul>
+        </aside>
 
-            <a href="/dashboard" style="text-decoration: none; color: white;">
-                <li>
-                <i class="ri-dashboard-line"></i>
-                Dashboard
-            </li>
-            </a>
 
-            <a href="" style="text-decoration: none; color: white;">
-                <li class="active">
-                <i class="ri-file-list-line"></i>
-                My Tickets
-            </li>
-            </a>
+        <!-- MAIN CONTENT -->
+        <main class="main">
 
-            <a href="/create-ticket" style="text-decoration: none; color: white;">
-                <li>
-                <i class="ri-add-circle-line"></i>
-                Create Ticket
-            </li>
-            </a>
+            <!-- TICKET HEADER -->
+            <div class="ticket-header">
 
-            <a href="/chatbox" style="text-decoration: none; color: white;">
-                <li>
-                <i class="ri-robot-line"></i>
-                AI Assistant
-            </li>
-            </a>
+                <div>
+                    <h1 style="color: #006b2d;">
+                        Ticket #{{ ticket_detail.ticket_code }}
+                    </h1>
 
-        </ul>
+                    <p>
+                        {{ ticket_detail.ticket_title }}
+                    </p>
+                </div>
 
-    </aside>
+                <div class="badges">
 
-    <!-- MAIN -->
+                    <span class="priority {{ ticket_detail.priority|lower }}">
+                        {{ ticket_detail.priority }} Priority
+                    </span>
 
-    <main class="main">
+                    <span class="status {{ ticket_detail.ticket_status|slugify }}">
+                        {{ ticket_detail.ticket_status }}
+                    </span>
 
-        <div class="ticket-header">
+                </div>
+
+            </div>
+
+
+            <!-- CONTENT GRID -->
+            <div class="content-grid">
+
+                <!-- LEFT COLUMN -->
+                <div>
+
+                    <!-- DESCRIPTION CARD -->
+                    <div class="card">
+
+                        <h3>Description</h3>
+
+                        <p>
+                            {{ ticket_detail.description }}
+                        </p>
+
+                    </div>
+
+
+                    <!-- ATTACHMENTS CARD -->
+                    {% if ticket_detail.attachment %}
+                    <div class="card attachment-card">
+
+                        <h3>Attachments</h3>
+
+                        <div class="attachment-preview">
+
+                            <a href="{{ ticket_detail.attachment.url }}" target="_blank">
+                                <img
+                                    src="{{ ticket_detail.attachment.url }}"
+                                    alt="Ticket attachment"
+                                    class="ticket-image"
+                                >
+                            </a>
+
+                            <div class="attachment-info">
+                                <i class="ri-image-line"></i>
+                                <span>View full image</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    {% endif %}
+
+
+                    <!-- RESOLUTION CARD -->
+                    {% if ticket_detail.resolution_response %}
+                    <div class="card">
+
+                        <h3>Resolution</h3>
+
+                        <p>
+                            {{ ticket_detail.resolution_response }}
+                        </p>
+
+                        {% if ticket_detail.resolved_at %}
+                        <small>
+                            Resolved on:
+                            {{ ticket_detail.resolved_at|date:"M d, Y - h:i A" }}
+                        </small>
+                        {% endif %}
+
+                    </div>
+                    {% endif %}
+
+
+                    <!-- RESOLUTION FORM -->
+                    {% if can_resolve %}
+                    <div class="card">
+
+                        <h3>Resolve Ticket</h3>
+
+                        <form
+                            method="POST"
+                            action="{% url 'resolve-ticket' ticket_detail.ticket_code %}"
+                        >
+
+                            {% csrf_token %}
+
+                            <label for="resolution_response">
+                                Resolution Details
+                            </label>
+
+                            <textarea
+                                name="resolution_response"
+                                id="resolution_response"
+                                required
+                                placeholder="Describe the steps taken to resolve this issue..."
+                            ></textarea>
+
+                            <button type="submit">
+                                Mark as Resolved
+                            </button>
+
+                        </form>
+
+                    </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- RIGHT COLUMN -->
+                <div>
+
+                    <!-- TICKET TIMELINE -->
+                    <div class="card">
+
+                        <h3>Ticket Timeline</h3>
+
+                        <div class="timeline">
+
+                            <div class="timeline-item">
+
+                                <h4>Ticket Created</h4>
+
+                                <p>
+                                    {{ ticket_detail.created_at|date:"M d, Y - h:i A" }}
+                                </p>
+
+                            </div>
+
+
+                            {% if ticket_detail.assigned_to %}
+                            <div class="timeline-item">
+
+                                <h4>Assigned to IT Support</h4>
+
+                                <p>
+                                    {{ ticket_detail.assigned_to.get_full_name|default:ticket_detail.assigned_to.username }}
+                                </p>
+
+                            </div>
+                            {% endif %}
+
+
+                            {% if ticket_detail.ticket_status == 'In Progress' or ticket_detail.ticket_status == 'Resolved' %}
+                            <div class="timeline-item">
+
+                                <h4>Investigation Started</h4>
+
+                            </div>
+                            {% endif %}
+
+
+                            {% if ticket_detail.ticket_status == 'Resolved' %}
+                            <div class="timeline-item">
+
+                                <h4>Ticket Resolved</h4>
+
+                                <p>
+                                    {{ ticket_detail.resolved_at|date:"M d, Y - h:i A" }}
+                                </p>
+
+                            </div>
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ASSIGNED TECHNICIAN CARD -->
+                    <div class="card">
+
+                        <h3>Assigned Technician</h3>
+
+                        {% if ticket_detail.assigned_to %}
+
+                            <div class="tech">
+
+                                {{ ticket_detail.assigned_to.get_full_name|default:ticket_detail.assigned_to.username }}
+
+                            </div>
+
+                        {% else %}
+
+                            <div class="tech">
+                                Not yet assigned
+                            </div>
+
+                        {% endif %}
+
+
+                        <!-- CLAIM TICKET BUTTON -->
+                        {% if can_claim %}
+                        <form
+                            method="POST"
+                            action="{% url 'claim-ticket' ticket_detail.ticket_code %}"
+                        >
+
+                            {% csrf_token %}
+
+                            <button type="submit">
+                                Claim Ticket
+                            </button>
+
+                        </form>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+
+        <div class="footer-grid">
 
             <div>
 
-                <h1>
-                    Ticket #{{ ticket_detail.ticket_code }}
-                </h1>
+                <h3>ITSupport</h3>
 
                 <p>
-                    {{ ticket_detail.ticket_title }}
+                    Smart IT Helpdesk platform
+                    for managing support tickets.
                 </p>
 
             </div>
 
-            <div class="badges">
-
-                <span class="priority {{ ticket.priority }}">
-                    {{ ticket_detail.priority }} Priority
-                </span>
-
-                <span class="status {{ ticket.ticket_status }}">
-                    {{ ticket_detail.ticket_status }}
-                </span>
-
-            </div>
-
-        </div>
-
-        <!-- GRID -->
-
-        <div class="content-grid">
-
-            <!-- LEFT -->
 
             <div>
 
-                <!-- DESCRIPTION -->
+                <h4>Quick Links</h4>
 
-                <div class="card">
-
-                    <h3>Description</h3>
-
-                    <p>
-                        {{ ticket_detail.description }}
-                    </p>
-
-                </div>
-
-                <!-- ATTACHMENTS -->
-
-                <div class="card">
-
-                    <h3>Attachments</h3>
-
-                    <div class="attachment">
-
-                        <i class="ri-image-line"></i>
-
-                        {{ ticket_detail.attachment }}
-
-                    </div>
-
-                </div>
-
-                <!-- COMMENTS -->
-
-                <div class="card">
-
-                    <h3>Conversation</h3>
-
-                    <div class="comment user">
-
-                        <strong>TT</strong>
-
-                        <p>
-                            Laptop still not turning on.
-                        </p>
-
-                    </div>
-
-                    <div class="comment support">
-
-                        <strong>IT Support</strong>
-
-                        <p>
-                            Please test another charger.
-                        </p>
-
-                    </div>
-
-                    <div class="reply-box">
-
-                        <textarea
-                        placeholder="Type your reply..."></textarea>
-
-                        <button>
-
-                            Send Reply
-
-                        </button>
-
-                    </div>
-
-                </div>
+                <a href="#">Dashboard</a>
+                <a href="#">Tickets</a>
+                <a href="#">Knowledge Base</a>
 
             </div>
 
-            <!-- RIGHT -->
 
             <div>
 
-                <!-- TIMELINE -->
+                <h4>Support</h4>
 
-                <div class="card">
+                <a href="#">FAQ</a>
+                <a href="#">Privacy Policy</a>
 
-                    <h3>Ticket Timeline</h3>
+            </div>
 
-                    <ul class="timeline">
 
-                        <li class="done">
-                            Ticket Created
-                        </li>
+            <div>
 
-                        <li class="done">
-                            Assigned To IT
-                        </li>
+                <h4>Contact</h4>
 
-                        <li class="done">
-                            Investigation Started
-                        </li>
+                <p>support@itsupport.com</p>
 
-                        <li>
-                            Waiting For User
-                        </li>
-
-                        <li>
-                            Resolved
-                        </li>
-
-                    </ul>
-
-                </div>
-
-                <!-- ASSIGNED -->
-
-                <div class="card">
-
-                    <h3>Assigned Technician</h3>
-
-                    <div class="tech">
-
-                        <div class="avatar">
-
-                            D
-
-                        </div>
-
-                        <div>
-
-                            <strong>
-                                Dayo
-                            </strong>
-
-                            <p>
-                                IT Operations
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
+                <p>Lagos, Nigeria</p>
 
             </div>
 
         </div>
 
-    </main>
 
-</div>
+        <div class="footer-bottom">
 
-<!-- FOOTER -->
-
-    <footer class="site-footer">
-
-    <div class="footer-grid">
-
-        <div>
-
-            <h3>ITSupport</h3>
-
-            <p>
-                Smart IT Helpdesk platform
-                for managing support tickets.
-            </p>
+            © 2026 ITSupport.
+            All rights reserved.
 
         </div>
 
-        <div>
+    </footer>
 
-            <h4>Quick Links</h4>
 
-            <a href="#">Dashboard</a>
-            <a href="#">Tickets</a>
-            <a href="#">Knowledge Base</a>
+    <!-- MOBILE SIDEBAR SCRIPT -->
+    <script>
 
-        </div>
+        const menuBtn = document.getElementById("menuBtn");
 
-        <div>
+        const sidebar = document.getElementById("sidebar");
 
-            <h4>Support</h4>
+        const overlay = document.getElementById("overlay");
 
-            <a href="#">FAQ</a>
-            <a href="#">Privacy Policy</a>
 
-        </div>
+        menuBtn.addEventListener("click", () => {
 
-        <div>
+            sidebar.classList.toggle("show");
 
-            <h4>Contact</h4>
+            overlay.classList.toggle("show");
 
-            <p>support@itsupport.com</p>
+        });
 
-            <p>Lagos, Nigeria</p>
 
-        </div>
+        overlay.addEventListener("click", () => {
 
-    </div>
+            sidebar.classList.remove("show");
 
-    <div class="footer-bottom">
+            overlay.classList.remove("show");
 
-        © 2026 ITSupport.
-        All rights reserved.
+        });
 
-    </div>
-
-</footer>
-
-<script>
-
-const menuBtn =
-document.getElementById("menuBtn");
-
-const sidebar =
-document.getElementById("sidebar");
-
-const overlay =
-document.getElementById("overlay");
-
-menuBtn.addEventListener("click",()=>{
-
-sidebar.classList.toggle("show");
-
-overlay.classList.toggle("show");
-
-});
-
-overlay.addEventListener("click",()=>{
-
-sidebar.classList.remove("show");
-
-overlay.classList.remove("show");
-
-});
-
-</script>
+    </script>
 
 </body>
 </html>

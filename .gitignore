@@ -220,3 +220,6 @@ __marimo__/
 
 db.sqlite3.backup
 initial_data.json
+
+backup/db.sqlite3.backup
+backup/initial_data.json
